@@ -163,7 +163,7 @@ var firebaseConfig = {
   
   firebase.initializeApp(firebaseConfig);
   var db = firebase.firestore();
-  
+})
   // Function to send data to Firestore
   function sendTableToFirestore() {
       // Get the table data
@@ -189,4 +189,3 @@ var firebaseConfig = {
           });
       }
   }
-})
