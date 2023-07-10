@@ -13,3 +13,8 @@ form {
     align-items: center;
 }
 
+.lottie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
