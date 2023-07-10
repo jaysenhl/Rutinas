@@ -25,14 +25,14 @@ document.querySelector("form").addEventListener("submit", function(event) {
     for (var i = 0; i < series; i++) {
         // Crea una nueva fila y la añade a la tabla
         var nuevaFila = `<tr>
-            <td contenteditable='true'>${ejercicio}</td>
-            <td contenteditable='true'>${tiposPeso}</td>
-            <td contenteditable='true'>${pesoEscogido}</td>
-            <td contenteditable='true'>1</td>
-            <td contenteditable='true'>${repeticiones}</td>
-            <td contenteditable='true'>${recuperacionMinutos}</td>
-            <td contenteditable='true'>${recuperacionSegundos}</td>
-            <td contenteditable='true'></td>
+            <td name="ejercicio" contenteditable='true'>${ejercicio}</td>
+            <td name="tipoDePeso" contenteditable='true'>${tiposPeso}</td>
+            <td name="pesoALevantar" contenteditable='true'>${pesoEscogido}</td>
+            <td name="sets" contenteditable='true'>1</td>
+            <td name="repeticiones" contenteditable='true'>${repeticiones}</td>
+            <td name="minutos" contenteditable='true'>${recuperacionMinutos}</td>
+            <td name="segundos" contenteditable='true'>${recuperacionSegundos}</td>
+            <td name="ejercicioCompletado" contenteditable='true'></td>
         </tr>`;
         document.querySelector("#tablaEjercicios tbody").innerHTML += nuevaFila;
     }
@@ -148,3 +148,43 @@ function downloadTableAsCSV() {
     link.click();
     document.body.removeChild(link);
 }
+
+
+// Firestore
+// Initialize Firebase and Firestore
+// Remember to replace with your actual Firebase config
+var firebaseConfig = {
+    apiKey: "AIzaSyB7pUSAuL3_DWGfOfaEBAmjUhrVirTGc7Q",
+    authDomain: "misrutinas-65775.firebaseapp.com",
+    projectId: "misrutinas-65775",
+  };
+  
+  firebase.initializeApp(firebaseConfig);
+  var db = firebase.firestore();
+  
+  // Function to send data to Firestore
+  function sendTableToFirestore() {
+      // Get the table data
+      let table = document.getElementById("tablaEjercicios");
+      let data = [];
+  
+      for (let i = 0, row; row = table.rows[i]; i++) {
+          let rowData = {};
+          for (let j = 0, col; col = row.cells[j]; j++) {
+              rowData[col.getAttribute("name")] = col.innerText;
+          }
+          data.push(rowData);
+      }
+  
+      // Send each row to Firestore
+      for (let i = 0; i < data.length; i++) {
+          db.collection("misrutinas-65775").add(data[i])
+          .then((docRef) => {
+              console.log("Document written with ID: ", docRef.id);
+          })
+          .catch((error) => {
+              console.error("Error adding document: ", error);
+          });
+      }
+  }
+  
