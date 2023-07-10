@@ -118,3 +118,33 @@ document.getElementById('botonAceptarGrupoMuscular').addEventListener('click', f
         'success'
       )
 })
+
+// Descargar CSV
+function downloadTableAsCSV() {
+    // Obtener los datos de la tabla HTML
+    let table = document.getElementById("tablaEjercicios"); // Reemplaza "myTable" con el ID de tu tabla
+    let data = [];
+
+    for (let i = 0, row; row = table.rows[i]; i++) {
+        let rowData = [];
+        for (let j = 0, col; col = row.cells[j]; j++) {
+            rowData.push(col.innerText);
+        }
+        data.push(rowData.join(","));
+    }
+
+    // Convertir los datos a formato CSV
+    let csvContent = data.join("\n");
+
+    // Crear un enlace de descarga para el archivo CSV
+    let blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    let url = URL.createObjectURL(blob);
+    let link = document.createElement("a");
+    link.setAttribute("href", url);
+    let grupoMuscular = document.getElementById('grupoMuscularSelect').value;
+    link.setAttribute("download", `${grupoMuscular}_${dateString}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
