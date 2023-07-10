@@ -153,6 +153,8 @@ function downloadTableAsCSV() {
 // Firestore
 // Initialize Firebase and Firestore
 // Remember to replace with your actual Firebase config
+document.addEventListener("DOMContentLoaded", function(){
+
 var firebaseConfig = {
     apiKey: "AIzaSyB7pUSAuL3_DWGfOfaEBAmjUhrVirTGc7Q",
     authDomain: "misrutinas-65775.firebaseapp.com",
@@ -187,4 +189,4 @@ var firebaseConfig = {
           });
       }
   }
-  
+})
