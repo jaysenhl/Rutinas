@@ -1,3 +1,6 @@
+var client = new faunadb.Client({ secret: '369883211113693261' });
+var q = faunadb.query;
+
 
 // Anadir Ejercicios del formulario
 document.querySelector("form").addEventListener("submit", function(event) {
@@ -35,7 +38,30 @@ document.querySelector("form").addEventListener("submit", function(event) {
             <td name="ejercicioCompletado" contenteditable='true'></td>
         </tr>`;
         document.querySelector("#tablaEjercicios tbody").innerHTML += nuevaFila;
+        
+        // FAUNADB
+        client.query(
+            q.Create(
+                q.Collection('Ejercicios'),  // Reemplaza 'myCollection' con el nombre de tu colección
+                {
+                    data: {
+                        ejercicio: ejercicio,
+                        tipoDePeso: tiposPeso,
+                        pesoALevantar: pesoEscogido,
+                        sets: '1',
+                        repeticiones: repeticiones,
+                        minutos: recuperacionMinutos,
+                        segundos: recuperacionSegundos,
+                        ejercicioCompletado: ''
+                    }
+                }
+            )
+        )
+        .then((ret) => console.log(ret))
+        .catch((err) => console.error('Error: ', err.message));
     }
+
+
     event.target.reset();
     Swal.fire(
         "",
