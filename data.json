@@ -1,0 +1,39 @@
+{
+    "Ejercicios": [
+        "Abdominales",
+        "Bench Press",
+        "Bicicleta",
+        "Bicep Curls",
+        "Caminar",
+        "Deadlift",
+        "Delt Raise",
+        "Escaleras",
+        "Hammer Curls",
+        "Leg Curls",
+        "Lunges",
+        "Pullup",
+        "Pullover",
+        "Rows",
+        "Row Left Arm",
+        "Row Right Arm",
+        "Rowing Machine",
+        "Shoulder Press",
+        "Squats",
+        "Straight Leg Deadlift",
+        "Sumo Squat",
+        "Tricep Extension"
+    ],
+    "TiposDePeso": [
+        "Dumbbells",
+        "Kettlebell",
+        "Barra",
+        "Peso corporal",
+        "Maquina"
+    ],
+    "GruposMusculares": [
+        "Cuerpo Completo",
+        "Upper Body",
+        "Lower Body",
+        "Cardio"
+    ]
+}

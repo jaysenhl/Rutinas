@@ -1,0 +1,120 @@
+
+// Anadir Ejercicios del formulario
+document.querySelector("form").addEventListener("submit", function(event) {
+    event.preventDefault();  // Evita que el formulario se envíe
+
+    let ejercicio = document.getElementById("ejercicioSelect").value;
+    let tiposPeso = document.getElementById("tiposDePesoSelect").value;
+    let pesoEscogido = document.getElementById("pesoInput").value;
+    let series = document.getElementById("seriesInput").value;
+    let repeticiones = document.getElementById("repeticionesInput").value;
+    let recuperacionMinutos = document.getElementById("minutosInput").value;
+    let recuperacionSegundos = document.getElementById("segundosInput").value;
+
+    // Validar los valores ingresados por el usuario
+        if (isNaN(series) || series < 0 || isNaN(repeticiones) || repeticiones < 0 || isNaN(recuperacionMinutos) || recuperacionMinutos < 0 || isNaN(recuperacionSegundos) || recuperacionSegundos < 0) {
+            Swal.fire(
+                "",
+                "NO PUEDEN HABER VALORES NEGATIVOS",
+                'success'
+              )
+            return;
+        }
+
+// Duplica la fila de acuerdo con la cantidad de series
+    for (var i = 0; i < series; i++) {
+        // Crea una nueva fila y la añade a la tabla
+        var nuevaFila = `<tr>
+            <td contenteditable='true'>${ejercicio}</td>
+            <td contenteditable='true'>${tiposPeso}</td>
+            <td contenteditable='true'>${pesoEscogido}</td>
+            <td contenteditable='true'>1</td>
+            <td contenteditable='true'>${repeticiones}</td>
+            <td contenteditable='true'>${recuperacionMinutos}</td>
+            <td contenteditable='true'>${recuperacionSegundos}</td>
+            <td contenteditable='true'></td>
+        </tr>`;
+        document.querySelector("#tablaEjercicios tbody").innerHTML += nuevaFila;
+    }
+    event.target.reset();
+    Swal.fire(
+        "",
+        `Ejercicio Añadido: ${ejercicio.toUpperCase()}. (Si necesitas añadir otro vuelve al paso número 2)`,
+        'success'
+      )
+});
+
+// Countdown Click Event
+document.getElementById("btnRecuperar").addEventListener("click", function() {
+    // Obtiene la última fila de la tabla de ejercicios
+    var ultimaFila = document.querySelector("#tablaEjercicios tbody").lastElementChild;
+    
+    if (ultimaFila) {
+        // Obtiene los valores de tiempo de recuperación de la última fila
+        var minutos = parseInt(ultimaFila.children[5].textContent);
+        var segundos = parseInt(ultimaFila.children[6].textContent);
+
+        // Convierte el tiempo de recuperación a segundos
+        var tiempoRecuperacion = minutos * 60 + segundos;
+
+        // Inicia la cuenta regresiva
+        iniciarCuentaRegresiva(tiempoRecuperacion);
+    } else {
+        console.log("No hay ejercicios en la tabla.");
+    }
+});
+
+const audio = new Audio('marioPowerUpFX.mp3');
+
+// Countdown Timer
+function iniciarCuentaRegresiva(tiempo) {
+    let tiempoInicial = tiempo;  // Guarda el tiempo de recuperación inicial
+    let timerInterval;
+
+    Swal.fire({
+        title: '¡Tiempo de recuperación!',
+        html: 'Quedan <b></b> segundos.',
+        timer: tiempoInicial * 1000,
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading();
+            const b = Swal.getHtmlContainer().querySelector('b');
+            timerInterval = setInterval(() => {
+                b.textContent = Math.round(Swal.getTimerLeft() / 1000);
+            }, 1000);
+        },
+        willClose: () => {
+            clearInterval(timerInterval);
+        }
+    }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+            audio.play();
+            Swal.fire('¡Tiempo de recuperación completado!', 'Puedes continuar con el siguiente ejercicio.', 'success');
+        }
+    });
+}
+
+// BOTON BORRAR TODO 
+document.getElementById('botonBorrarTodo').addEventListener('click',()=> location.reload())
+
+// Obtener Fecha
+const currentDate = new Date();
+const dateString = currentDate.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+const element = document.getElementById("fechaContainer");
+function AnadirFecha(){
+        element.innerHTML = `Fecha: ${dateString}`;
+}
+
+// Aceptar Grupo Muscular
+document.getElementById('botonAceptarGrupoMuscular').addEventListener('click', function(event){
+    event.preventDefault();
+    AnadirFecha();
+    let grupoMuscular = document.getElementById('grupoMuscularSelect').value;
+    document.getElementById('grupoMuscularContainer').textContent = `Grupo Muscular: ${grupoMuscular}`;
+    document.getElementById('paso1Container').style.visibility = "hidden";
+    Swal.fire(
+        "",
+        `Grupo Muscular Seleccionado: ${grupoMuscular.toUpperCase()}`,
+        'success'
+      )
+})
