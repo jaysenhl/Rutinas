@@ -1,5 +1,10 @@
 {
     "Ejercicios": [
+        "1-1-2 Hammer Curl",
+        "Chest Press",
+        "Fly",
+        "Press",
+        "Tricep Pushup",
         "Abdominales",
         "Bench Press",
         "Bicicleta",
@@ -21,7 +26,19 @@
         "Squats",
         "Straight Leg Deadlift",
         "Sumo Squat",
-        "Tricep Extension"
+        "Tricep Extension",
+        "Back Fly",
+        "Lunge Alternate",
+        "Lunge Reverse",
+        "Squat Parallel",
+        "Squat Bulgarian",
+        "Deadlift Straight Leg",
+        "Calf Raise",
+        "Raise Lateral",
+        "Upright Row",
+        "Raise Front",
+        "Raise Rear Delt",
+        "Shrug"
     ],
     "TiposDePeso": [
         "Dumbbells",
