@@ -1,5 +1,4 @@
-// Import the db object from firebaseConfig.js
-import db from './firebaseConfig.js';
+
 
 // Anadir Ejercicios del formulario
 document.querySelector("form").addEventListener("submit", function(event) {
@@ -153,29 +152,3 @@ function downloadTableAsCSV() {
     document.body.removeChild(link);
 }
 
-// send to firebase
-document.getElementById('saveToFirestore').addEventListener('click', function() {
-    let table = document.getElementById('tablaEjercicios');
-    let headers = [];
-    for (let i = 0; i < table.rows[0].cells.length; i++) {
-        headers[i] = table.rows[0].cells[i].innerHTML.toLowerCase().replace(/ /gi,'');
-    }
-
-    let tableData = [];
-    for (let i = 1; i < table.rows.length; i++) {
-        let tableRow = table.rows[i];
-        let rowData = {};
-        for (let j = 0; j < tableRow.cells.length; j++) {
-            rowData[ headers[j] ] = tableRow.cells[j].innerHTML;
-        }
-        tableData.push(rowData);
-    }
-
-    db.collection('workouts').add({tableData: tableData})
-        .then((docRef) => {
-            console.log('Document written with ID: ', docRef.id);
-        })
-        .catch((error) => {
-            console.error('Error adding document: ', error);
-        });
-});
