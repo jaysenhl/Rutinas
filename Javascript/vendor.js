@@ -3,7 +3,7 @@ let tiposDePeso = [];
 let gruposMusculares = [];
 
 // Leer json
-fetch('data_sorted.json')
+fetch('/assets/data_sorted.json')
     .then(response => response.json())
     .then(data => {
         gruposMusculares = data.GruposMusculares;

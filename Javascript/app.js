@@ -65,7 +65,7 @@ document.getElementById("btnRecuperar").addEventListener("click", function() {
     }
 });
 
-const audio = new Audio('marioPowerUpFX.mp3');
+const audio = new Audio('/assets/marioPowerUpFX.mp3');
 
 // Countdown Timer
 function iniciarCuentaRegresiva(tiempo) {
